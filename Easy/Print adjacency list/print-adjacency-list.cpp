@@ -8,10 +8,12 @@ class Solution {
     // Function to return the adjacency list for each vertex.
     vector<vector<int>> printGraph(int V, vector<pair<int,int>>edges) {
         // Code here
-        vector<vector<int>> adj(V+1);
-        for(auto it:edges){
-            adj[it.first].push_back(it.second);
-            adj[it.second].push_back(it.first);
+        vector<vector<int>> adj(V);
+        for(int i=0;i<edges.size();i++){
+            int edge1 = edges[i].first;
+            int edge2 = edges[i].second;
+            adj[edge1].push_back(edge2);
+            adj[edge2].push_back(edge1);
         }
         return adj;
     }
