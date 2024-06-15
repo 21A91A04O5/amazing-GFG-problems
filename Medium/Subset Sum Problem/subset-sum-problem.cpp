@@ -19,7 +19,7 @@ public:
            return dp[sum][n]=fun(arr,sum,n-1,dp);
     }
     bool isSubsetSum(vector<int>arr, int sum){
-        vector<vector<int>> dp(sum+1,vector<int>(arr.size()+1,-1));
+        vector<vector<int>> dp(sum+1,vector<int>(arr.size(),-1));
         return fun(arr,sum,arr.size()-1,dp);
     }
 };
