@@ -9,17 +9,17 @@ class Solution
     public:
     //Function to return max value that can be put in knapsack of capacity W.
     int knap(int wt[],int val[],int W,int n,vector<vector<int>>& dp){
-        if(W==0 or n<0) return 0;
+        if(W==0 or n==0) return 0;
         if(dp[W][n]!=-1) return dp[W][n];
-        if(wt[n]<=W)
-            return dp[W][n]=max(val[n]+knap(wt,val,W-wt[n],n-1,dp),knap(wt,val,W,n-1,dp));
+        if(wt[n-1]<=W)
+            return dp[W][n]=max(val[n-1]+knap(wt,val,W-wt[n-1],n-1,dp),knap(wt,val,W,n-1,dp));
         else
             return dp[W][n]=knap(wt,val,W,n-1,dp);
     }
     int knapSack(int W, int wt[], int val[], int n) 
     { 
         vector<vector<int>> dp(W+1,vector<int>(n+1,-1));
-        return knap(wt,val,W,n-1,dp);
+        return knap(wt,val,W,n,dp);
     }
 };
 
