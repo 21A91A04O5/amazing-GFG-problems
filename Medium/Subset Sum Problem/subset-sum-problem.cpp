@@ -9,18 +9,29 @@ using namespace std;
 
 class Solution{   
 public:
-    bool fun(vector<int>arr, int sum, int n,vector<vector<int>>& dp){
-        if(sum==0) return true;
-        if(n<0)  return false;
-        if(dp[sum][n]!=-1) return dp[sum][n];
-        if(arr[n]<=sum)
-           return dp[sum][n]=fun(arr,sum-arr[n],n-1,dp) || fun(arr,sum,n-1,dp);
-        else
-           return dp[sum][n]=fun(arr,sum,n-1,dp);
-    }
+    // bool fun(vector<int>arr, int sum, int n,vector<vector<int>>& dp){
+    //     if(sum==0) return true;
+    //     if(n<0)  return false;
+    //     if(dp[n][sum]!=-1) return dp[sum][n];
+    //     if(arr[n]<=sum)
+    //       return dp[n][sum]=fun(arr,sum-arr[n],n-1,dp) || fun(arr,sum,n-1,dp);
+    //     else
+    //       return dp[n][sum]=fun(arr,sum,n-1,dp);
+    // }
     bool isSubsetSum(vector<int>arr, int sum){
-        vector<vector<int>> dp(sum+1,vector<int>(arr.size(),-1));
-        return fun(arr,sum,arr.size()-1,dp);
+        vector<vector<bool>> dp(arr.size()+1,vector<bool>(sum+1,false));
+        // return fun(arr,sum,arr.size()-1,dp);
+        for(int i=0;i<=arr.size();i++){
+            for(int j=0;j<=sum;j++){
+                if(j==0)  dp[i][j]=true;
+                else if(i==0)  dp[i][j]=false;
+                else if(arr[i-1]<=j)  
+                  dp[i][j]=(dp[i-1][j-arr[i-1]] || dp[i-1][j]);
+                else
+                  dp[i][j]=dp[i-1][j];
+            }
+        }
+        return dp[arr.size()][sum];
     }
 };
 
